@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- UserProfile.xml -->
+<mapper namespace="com.lxw.mapper.UserProfileMapper">
+
+    <!-- 定义根据用户ID查询用户资料及关联用户信息的嵌套结果查询 -->
+    <select id="getUserProfileWithUserById" parameterType="int" resultMap="userProfileWithUserResultMap">
+        SELECT up.*, u.*
+        FROM 528_user_profile up
+        INNER JOIN 528_user u ON up.user_id = u.id
+        WHERE up.user_id = #{id}
+    </select>
+
+    <!-- 定义结果映射 -->
+    <resultMap id="userProfileWithUserResultMap" type="com.lxw.pojo.UserProfile">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="fullName" column="full_name"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="address" column="address"/>
+
+        <association property="user" resultMap="userResultMap"/>
+    </resultMap>
+
+    <resultMap id="userResultMap" type="com.lxw.pojo.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="avatar" column="avatar"/>
+        <result property="lastIp" column="last_ip"/>
+        <result property="lastAt" column="last_at"/>
+        <result property="status" column="status"/>
+        <result property="failTimes" column="fail_times"/>
+        <result property="lockExpireTime" column="lock_expire_time"/>
+        <result property="balance" column="balance"/>
+        <result property="createAt" column="create_at"/>
+        <result property="createIp" column="create_ip"/>
+    </resultMap>
+
+</mapper>

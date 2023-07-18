@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- UserPermissionMapper.xml -->
+<mapper namespace="com.lxw.mapper.UserPermissionsMapper">
+
+    <!-- 定义根据用户ID查询用户信息和权限信息的嵌套查询 -->
+    <select id="getUserWithPermissionsById" parameterType="int" resultMap="userWithPermissionsResultMap">
+        SELECT * FROM 528_user WHERE id=#{id}
+    </select>
+
+    <!-- 定义根据用户ID查询权限信息的嵌套结果查询 -->
+    <select id="getPermissionsByUserId" parameterType="int" resultMap="permissionResultMap">
+        SELECT p.* FROM 528_permissions p
+        INNER JOIN 528_user_permissions up ON up.permission_id = p.id
+        WHERE up.user_id=#{userId}
+    </select>
+
+    <!-- 定义结果映射 -->
+    <resultMap id="userWithPermissionsResultMap" type="com.lxw.pojo.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="avatar" column="avatar"/>
+        <result property="lastIp" column="last_ip"/>
+        <result property="lastAt" column="last_at"/>
+        <result property="status" column="status"/>
+        <result property="failTimes" column="fail_times"/>
+        <result property="lockExpireTime" column="lock_expire_time"/>
+        <result property="balance" column="balance"/>
+        <result property="createAt" column="create_at"/>
+        <result property="createIp" column="create_ip"/>
+        <collection property="userPermissions" ofType="com.lxw.pojo.UserPermissions" resultMap="permissionResultMap"/>
+    </resultMap>
+
+    <resultMap id="permissionResultMap" type="com.lxw.pojo.UserPermissions">
+        <id property="userId" column="user_id"/>
+        <result property="permissionId" column="name"/>
+        <result property="description" column="description"/>
+    </resultMap>
+
+</mapper>
