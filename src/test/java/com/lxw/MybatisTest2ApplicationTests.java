@@ -6,11 +6,13 @@ import com.lxw.mapper.UserPermissionsMapper;
 import com.lxw.mapper.UserProfileMapper;
 import com.lxw.pojo.User;
 import com.lxw.pojo.UserOrder;
+import com.lxw.pojo.UserPermissions;
 import com.lxw.pojo.UserProfile;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -64,8 +66,11 @@ class MybatisTest2ApplicationTests {
 
     @Test
     public void testGetUserWithOrdersById() {
-        User user = userOrderMapper.getUserWithOrdersById(2);
+        User user = userOrderMapper.getUserWithOrdersById(3);
+        User userWithOrdersById = userOrderMapper.getUserWithOrdersById(1);
         System.out.println(user);
+
+        System.out.println(userWithOrdersById);
     }
 
 
@@ -75,6 +80,10 @@ class MybatisTest2ApplicationTests {
     @Test
     public void testGetUserWithPermissionsById() {
         User user = userPermissionsMapper.getUserWithPermissionsById(2);
+        User userWithPermissionsById = userPermissionsMapper.getUserWithPermissionsById(1);
         System.out.println(user);
+        System.out.println(userWithPermissionsById);
+
     }
+
 }

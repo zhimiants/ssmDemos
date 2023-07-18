@@ -37,7 +37,7 @@
     <resultMap id="permissionResultMap" type="com.lxw.pojo.UserPermissions">
         <id property="userId" column="user_id"/>
         <result property="permissionId" column="name"/>
-        <result property="description" column="description"/>
+
     </resultMap>
 
 </mapper>
