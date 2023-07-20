@@ -16,6 +16,8 @@ public class User {
     UserProfile userProfile;
     UserOrder userOrder;
     UserPermissions userPermissions;
+
+    UserRoles userRoles;
     private int id;
     private String username;
     private String password;
@@ -39,5 +41,9 @@ public class User {
 
     public void setUserPermissions(UserPermissions userPermissions) {
         this.userPermissions=userPermissions;
+    }
+
+    public void setUserRoles(UserRoles userRoles) {
+        this.userRoles=userRoles;
     }
 }
